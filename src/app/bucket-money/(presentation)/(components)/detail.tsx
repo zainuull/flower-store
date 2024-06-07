@@ -91,7 +91,7 @@ const Detail = (props: IDetail) => {
           onClick={() => handleMenu(data, 'close')}
           className="absolute right-4 top-2 text-primary cursor-pointer"
         />
-        <img src={data.imageUrl} className="object-cover col-span-5 w-full h-full" />
+        <img src={data.imageUrl} className="object-cover h-full col-span-5 overflow-hidden" />
         <div className="col-span-7 flex flex-col gap-y-4">
           <h1 className="text-xl font-semibold">{data.title}</h1>
           <span className="border-y-2 border-black/60 p-2 mb-5 flex items-center justify-between">
