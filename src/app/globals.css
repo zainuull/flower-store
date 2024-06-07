@@ -2,32 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+.button {
+  @apply px-6 py-2 bg-green-600 text-white rounded-lg font-semibold;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.button-register {
+  @apply px-2 py-2 bg-green-600 hover:bg-green-900 transition-all text-white font-semibold rounded-lg;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.cancel-button {
+  @apply px-6 py-2 bg-gray-300 text-green-500 rounded-lg;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.inject-button {
+  @apply px-6 py-2 bg-green-600 text-white rounded-lg;
+}
+
+.disabled-button {
+  @apply px-6 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed;
 }
