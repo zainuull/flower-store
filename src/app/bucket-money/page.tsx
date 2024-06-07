@@ -84,7 +84,7 @@ const BucketMoney = ({
   };
 
   return (
-    <main className="w-full h-full p-2 flex flex-col gap-y-4 relative">
+    <main className="w-full h-full p-2 flex flex-col gap-y-4 overflow-hidden">
       <span className="w-full flex items-center justify-between px-4">
         <h1 className="text-xl text-primary font-semibold text-center mb-2">New Collection</h1>
         <div className="flex items-center gap-x-2">
@@ -178,6 +178,7 @@ const BucketMoney = ({
         isPayment={isPayment}
         setStore={setStore}
         store={store}
+        setData={setData}
       />
     </main>
   );

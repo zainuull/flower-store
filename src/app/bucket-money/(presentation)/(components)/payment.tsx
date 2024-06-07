@@ -10,10 +10,11 @@ interface IPayment {
   isPayment: boolean;
   setStore: Function;
   store: IStore;
+  setData: Function;
 }
 
 const Payment = (props: IPayment) => {
-  const { setIsPayment, isPayment, setStore, store } = props;
+  const { setIsPayment, isPayment, setStore, store, setData } = props;
   const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
   const notifyService = new NotifyService();
   const toastifyService = new ToastifyService();
@@ -43,6 +44,7 @@ const Payment = (props: IPayment) => {
                 total_price: 0,
                 type: '',
               });
+              window.location.reload();
             }
           });
         }
@@ -71,14 +73,14 @@ const Payment = (props: IPayment) => {
           total_price: 0,
           type: '',
         });
+        window.location.reload();
       }
     });
   };
 
   const handlePayment = () => {
     notifyService.confirmationCreate().then((res) => {
-      setIsPayment(!isPayment);
-      setIsOverlay(!isOverlay);
+      window.location.reload();
       setStore({
         id: 0,
         title: '',
@@ -87,7 +89,6 @@ const Payment = (props: IPayment) => {
         total_price: 0,
         type: '',
       });
-
       toastifyService.successCreate();
     });
   };
@@ -95,8 +96,8 @@ const Payment = (props: IPayment) => {
   return (
     <div
       className={`absolute ${
-        isPayment ? 'top-3 xl:top-8' : '-top-[4000px]'
-      } w-11/12 h-1/2 top-0 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10`}>
+        isPayment ? 'top-1/2 -translate-y-1/2' : '-top-[1000px]'
+      } w-11/12 h-1/2 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10`}>
       <div className="w-full h-full relative py-20 px-4 flex flex-col gap-10">
         <FaCircleXmark
           size={25}

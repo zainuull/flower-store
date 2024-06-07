@@ -83,8 +83,8 @@ const Detail = (props: IDetail) => {
   return (
     <div
       className={`absolute ${
-        isDetail ? 'top-3 xl:top-8' : '-top-[4000px]'
-      } w-11/12 h-4/5 top-0 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10`}>
+        isDetail ? 'top-1/2 -translate-y-1/2' : '-top-[1000px]'
+      } w-11/12 h-4/5 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10`}>
       <div className="w-full h-full relative py-20 px-4 grid grid-cols-12 gap-5">
         <FaCircleXmark
           size={25}

@@ -42,7 +42,6 @@ export default function Home() {
       <Profile isMenu={isMenu} setIsMenu={setIsMenu} user={user} />
       {/* Overlay */}
       {isOverlay && <span className="absolute bg-black/60 w-full min-h-full top-0"></span>}
-
       <ToastNotify />
     </main>
   );
