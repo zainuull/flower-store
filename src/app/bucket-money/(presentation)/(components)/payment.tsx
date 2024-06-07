@@ -97,7 +97,7 @@ const Payment = (props: IPayment) => {
     <div
       className={`absolute ${
         isPayment ? 'top-1/2 -translate-y-1/2' : '-top-[1000px]'
-      } w-11/12 h-1/2 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10`}>
+      } w-11/12 min-h-40 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10 pb-5`}>
       <div className="w-full h-full relative py-20 px-4 flex flex-col gap-10">
         <FaCircleXmark
           size={25}
