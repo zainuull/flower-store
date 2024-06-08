@@ -23,7 +23,7 @@ const Header = ({
   };
   return (
     <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 my-16">
-      <p className="uppercase xl:text-6xl text-primary font-semibold">Blooms</p>
+      <p className="uppercase xl:text-9xl text-primary font-semibold">Blooms</p>
       <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold">
         <Link href={'/'} className="hover:text-primary transition-all">
           Bucket Uang
