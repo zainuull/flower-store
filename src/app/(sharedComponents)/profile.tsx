@@ -55,7 +55,7 @@ const Profile = (props: IProfile) => {
       } w-44 xl:w-96 xl:h-96 bg-slate-100 rounded-xl flex flex-col gap-y-2 xl:gap-y-4 items-start text-black transition-all duration-500 shadow-md z-30 overflow-y-scroll pb-5`}>
       {/* Header */}
       <div className="w-full flex items-center justify-between mt-2 px-4">
-        <h1 className="text-primary font-semibold">Profile</h1>
+        <h1 className="text-primary font-semibold text-xs xl:text-base">Profile</h1>
         <FaRegCircleXmark
           onClick={handleClose}
           size={20}
@@ -69,7 +69,7 @@ const Profile = (props: IProfile) => {
           <h1>{user?.role ? user?.role : 'Unkown'}</h1>
         </span>
       </div>
-      <div className="w-full flex items-center justify-between px-2 xl:p-4 text-[10px] xl:text-sm">
+      <div className="w-full flex items-center justify-between px-2 xl:p-4 text-[8px] xl:text-sm">
         <button
           onClick={handleProfile}
           className="flex items-center gap-x-1 border border-primary rounded-md p-1 xl:p-2 hover:text-primary hover:font-semibold transition-all">

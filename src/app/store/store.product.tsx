@@ -1,4 +1,3 @@
-import { IDataUserModel } from '@/core/interface/IModel';
 import { atom, useAtom } from 'jotai';
 import { IStore } from '../bucket-money/domain/model/model';
 

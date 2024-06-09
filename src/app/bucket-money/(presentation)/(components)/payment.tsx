@@ -4,22 +4,26 @@ import { useEffect, useState } from 'react';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { IStore } from '../../domain/model/model';
 import useOverlay from '@/app/store copy/store.notif';
+import { UploadImage } from './upload.image';
 
 interface IPayment {
   setIsPayment: Function;
   isPayment: boolean;
   setStore: Function;
   store: IStore;
-  setData: Function;
 }
 
 const Payment = (props: IPayment) => {
-  const { setIsPayment, isPayment, setStore, store, setData } = props;
+  const { setIsPayment, isPayment, setStore, store } = props;
   const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
   const notifyService = new NotifyService();
   const toastifyService = new ToastifyService();
   const [isOverlay, setIsOverlay] = useOverlay();
   const [selectedBank, setSelectedBank] = useState<any>();
+  const [dataInput, setDataInput] = useState({
+    public_id: '',
+    imageUrl: '',
+  });
 
   const handleBankChange = (e: any) => {
     const selectedBankName = e.target.value;
@@ -65,15 +69,6 @@ const Payment = (props: IPayment) => {
     notifyService.confirmationCancel().then((res) => {
       if (res) {
         window.location.reload();
-        setStore({
-          id: 0,
-          title: '',
-          imageUrl: '',
-          quantity: 0,
-          total_price: 0,
-          type: '',
-        });
-        window.location.reload();
       }
     });
   };
@@ -81,14 +76,6 @@ const Payment = (props: IPayment) => {
   const handlePayment = () => {
     notifyService.confirmationCreate().then((res) => {
       window.location.reload();
-      setStore({
-        id: 0,
-        title: '',
-        imageUrl: '',
-        quantity: 0,
-        total_price: 0,
-        type: '',
-      });
       toastifyService.successCreate();
     });
   };
@@ -96,30 +83,30 @@ const Payment = (props: IPayment) => {
   return (
     <div
       className={`absolute ${
-        isPayment ? 'top-1/2 -translate-y-1/2' : '-top-[1000px]'
-      } w-11/12 min-h-40 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10 pb-5`}>
-      <div className="w-full h-full relative py-20 px-4 flex flex-col gap-10">
+        isPayment ? 'top-28 xl:top-1/2 xl:-translate-y-1/2' : '-top-[1000px]'
+      } w-full xl:w-11/12 min-h-40 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10 pb-5 text-[8px] xl:text-bas`}>
+      <div className="w-full h-full relative py-4 xl:py-20 px-4 flex flex-col gap-4 xl:gap-10">
         <FaCircleXmark
           size={25}
           onClick={handleCancel}
-          className="absolute right-4 top-2 text-primary cursor-pointer"
+          className="absolute right-2 xl:right-4 top-2 text-primary w-[10px] h-[10px] xl:w-[25px] xl:h-[25px] cursor-pointer"
         />
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-2 xl:gap-x-4">
           <input
-            className="w-1/2 bg-gray-100 rounded-lg py-3 px-4 text-sm"
+            className="w-1/2 bg-gray-100 rounded-lg p-2 xl:py-3 xl:px-4"
             placeholder="Promo & Voucher"
           />
           <button className="button">Gunakan</button>
         </div>
-        <div className="w-1/2 flex items-center gap-x-6 rounded-lg">
-          <label htmlFor="bank" className="font-medium text-sm w-[15%]">
+        <div className="xl:w-1/2 flex items-center gap-x-3 xl:gap-x-6 rounded-lg">
+          <label htmlFor="bank" className="font-medium w-1/4 xl:w-[15%]">
             Pilih Bank
           </label>
           <select
             id="bank"
             onChange={handleBankChange}
             value={selectedBank ? selectedBank.name : ''}
-            className="bg-gray-100 w-[100%] rounded-lg py-3 px-2 outline-none text-xs xl:text-sm cursor-pointer">
+            className="bg-gray-100 w-[100%] rounded-lg p-2 xl:py-3 xl:px-2 outline-none cursor-pointer">
             <option value={'-'}>--- Select ---</option>
             {dataBank.map((data) => (
               <option key={data.id} value={data.name}>
@@ -130,7 +117,7 @@ const Payment = (props: IPayment) => {
         </div>
         {selectedBank && (
           <div>
-            <p className="font-medium text-sm mt-2">No. Rek: {selectedBank.no_rek}</p>
+            <p className="font-medium xl:mt-2">No. Rek: {selectedBank.no_rek}</p>
           </div>
         )}
         <p>
@@ -145,8 +132,15 @@ const Payment = (props: IPayment) => {
             {formatTime(timeRemaining)}
           </span>
         </p>
+
+        <div className="flex flex-col gap-y-1">
+          <label htmlFor="uploadImage" className="font-medium">
+            Upload Bukti Payment<span className="text-red-600">*</span>
+          </label>
+          <UploadImage setDataInput={setDataInput} dataInput={dataInput} />
+        </div>
         <button onClick={handlePayment} className="button">
-          Payment
+          Kirim
         </button>
       </div>
     </div>

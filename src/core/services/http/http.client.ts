@@ -7,7 +7,7 @@ const cookies = new Cookies();
 const token = cookies.get('token');
 
 const headers = {
-  // Authorization: `Bearer ${token}`,
+  Authorization: `Bearer ${token}`,
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };

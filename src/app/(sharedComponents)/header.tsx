@@ -22,9 +22,9 @@ const Header = ({
     setIsMenu(!isMenu);
   };
   return (
-    <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 my-16">
+    <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 my-4 xl:my-16">
       <p className="uppercase xl:text-9xl text-primary font-semibold">Blooms</p>
-      <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold">
+      <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold text-[10px] xl:text-base">
         <Link href={'/'} className="hover:text-primary transition-all">
           Bucket Uang
         </Link>
@@ -37,8 +37,8 @@ const Header = ({
         <Link href={'/'} className="hover:text-primary transition-all">
           Giant Bucket
         </Link>
-        <div className="flex items-center gap-x-4">
-          <CiShoppingCart size={35} className="text-primary" />
+        <div className="flex items-center gap-x-1 xl:gap-x-4">
+          <CiShoppingCart size={35} className="text-primary w-[20px] h-[20px] xl:w-[35px] xl:h-[35px]" />
           {user.name?.length && (
             <div className="flex items-center gap-x-1 xl:gap-x-4">
               <div

@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full h-screen overflow-hidden flex flex-col gap-y-5 items-center">
+    <main className="w-full min-h-screen overflow-y-scroll flex flex-col xl:gap-y-5 items-center">
       <Header
         user={user}
         setIsOverlay={setIsOverlay}

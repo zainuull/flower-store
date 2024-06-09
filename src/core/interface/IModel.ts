@@ -36,9 +36,11 @@ export interface IDataProductsModel {
   public_id?: string;
   created_at?: string;
   category?: string;
+  description?: string;
   categories?: IDataCategoryModel[];
   users?: IDataUserModel[];
   action?: string;
+  data?: IDataProductsModel;
 }
 
 export interface IProductQuery extends IQueryModel {

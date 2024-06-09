@@ -8,7 +8,6 @@ export interface IBucketMoney {
   description: string;
 }
 
-
 export interface IStore {
   id: number;
   title: string;
