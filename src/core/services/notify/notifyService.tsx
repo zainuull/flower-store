@@ -92,6 +92,19 @@ export class NotifyService {
     });
   };
 
+  customerFeature = () => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: 'Fitur ini hanya untuk customer',
+        icon: 'info',
+        confirmButtonColor: '#b91c1c',
+        confirmButtonText: `<span id="btn-confirm">Kembali</span>`,
+      }).then((result) => {
+        resolve(result.isConfirmed);
+      });
+    });
+  };
+
   timeOutNotification = () => {
     return new Promise((resolve) => {
       Swal.fire({
@@ -248,6 +261,22 @@ export class NotifyService {
     return new Promise((resolve) => {
       Swal.fire({
         title: 'Apakah Anda Yakin Ingin Keluar ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#b91c1c',
+        cancelButtonColor: '#A8A8A8',
+        confirmButtonText: `<span id="btn-confirm">Saya Yakin !</span>`,
+        cancelButtonText: `<span id="btn-cancel">Batalkan</span>`,
+      }).then((result) => {
+        resolve(result.isConfirmed);
+      });
+    });
+  };
+
+  mustLogin = () => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: 'Anda Harus Login Terlebih Dahulu',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#b91c1c',

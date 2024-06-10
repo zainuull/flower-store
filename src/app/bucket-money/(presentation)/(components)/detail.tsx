@@ -7,6 +7,7 @@ import { CiCircleMinus, CiCirclePlus } from 'react-icons/ci';
 import VM from '../vm/vm';
 import { HandleError } from '@/core/services/handleError/handleError';
 import { CountsState } from '../../page';
+import { IDataUserModel } from '@/core/interface/IModel';
 
 interface IDetail {
   setIsDetail: Function;
@@ -16,11 +17,12 @@ interface IDetail {
   setStore: Function;
   handleMenu: Function;
   id: string;
+  user: IDataUserModel;
 }
 
 const Detail = (props: IDetail) => {
   const { getDataById, dataById } = VM();
-  const { setIsDetail, isDetail, setIsPayment, isPayment, setStore, handleMenu, id } = props;
+  const { setIsDetail, isDetail, setIsPayment, isPayment, setStore, handleMenu, id, user } = props;
   const notifyService = new NotifyService();
   const data = dataById?.data || {};
   const [counts, setCounts] = useState<CountsState>({});
@@ -97,13 +99,24 @@ const Detail = (props: IDetail) => {
     }, 0);
 
   const handleSubmit = () => {
-    notifyService.confirmationCreate().then((res) => {
-      if (res) {
-        setIsDetail(!isDetail);
-        setIsPayment(!isPayment);
-        // setStore(counts);
-      }
-    });
+    if (!user.token) {
+      notifyService.mustLogin().then((res) => {
+        if (res) {
+          window.location.href = '/login';
+        }
+      });
+    }
+
+    if (user.role === 'Customer') {
+      notifyService.confirmationCreate().then((res) => {
+        if (res) {
+          setIsDetail(!isDetail);
+          setIsPayment(!isPayment);
+        }
+      });
+    } else {
+      notifyService.customerFeature();
+    }
   };
 
   return (

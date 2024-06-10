@@ -255,6 +255,7 @@ const BucketMoney = ({
         setStore={setStore}
         handleMenu={handleMenu}
         id={id}
+        user={user}
       />
       {/* Payment */}
       <Payment
