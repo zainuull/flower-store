@@ -95,7 +95,7 @@ const Register = () => {
 
   return (
     <div className="w-full h-screen bg-secondary px-1 xl:p-4 flex xl:items-center xl:justify-center py-20 select-none">
-      <div className="w-full xl:w-1/3 h-3/4 xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-1 bg-white rounded-lg pb-5">
+      <div className="w-full xl:w-1/3 h-full xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-1 bg-white rounded-lg pb-5">
         <h1 className="text-xs xl:text-xl font-semibold leading-relaxed mt-5 xl:mt-10">
           Daftar Akun
         </h1>
@@ -150,7 +150,7 @@ const Register = () => {
               id="password"
               ref={passwordRef}
               type={viewPwd ? 'text' : 'password'}
-              className="w-full border-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-6 h-10 xl:h-16 outline-none text-xs xl:text-base"
+              className="w-full border-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-2 h-10 xl:h-16 outline-none text-xs xl:text-base"
               placeholder="Kata Sandi"
               autoComplete="current-password"
               value={dataInput?.password || ''}

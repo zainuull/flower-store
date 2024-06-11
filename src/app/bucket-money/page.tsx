@@ -95,12 +95,14 @@ const BucketMoney = ({
     return matchesType && matchesMinPrice && matchesMaxPrice;
   });
 
-  const handleMenu = (id: string, status: string) => {
-    setIsOverlay(!isOverlay);
-    setIsDetail(!isDetail);
-    // setIsPayment(!isPayment);
-    if (status === 'detail') {
-      setId(id);
+  const handleMenu = (id: string, qty: number, status: string) => {
+    if (qty !== 0) {
+      setIsOverlay(!isOverlay);
+      setIsDetail(!isDetail);
+      // setIsPayment(!isPayment);
+      if (status === 'detail') {
+        setId(id);
+      }
     }
   };
 
@@ -150,7 +152,7 @@ const BucketMoney = ({
               onChange={handleMinPriceChange}>
               {priceOptions.map((price) => (
                 <option key={price} value={price}>
-                  {price === '-' ? '--- Select ---' : price}
+                  {price === '-' ? '--- Select ---' : price.toString()}
                 </option>
               ))}
             </select>
@@ -166,7 +168,7 @@ const BucketMoney = ({
               onChange={handleMaxPriceChange}>
               {priceOptions.map((price) => (
                 <option key={price} value={price}>
-                  {price === '-' ? '--- Select ---' : price}
+                  {price === '-' ? '--- Select ---' : price.toString()}
                 </option>
               ))}
             </select>
@@ -206,8 +208,10 @@ const BucketMoney = ({
             return (
               <div
                 key={data.id}
-                onClick={() => handleMenu(data.id || '', 'detail')}
-                className="w-full xl:h-96 flex flex-col rounded-lg p-2 col-span-2 xl:col-span-4 shadow-md xl:shadow-xl xl:hover:scale-105 transition-all duration-100 cursor-pointer relative">
+                onClick={() => handleMenu(data.id || '', data.quantity || 0, 'detail')}
+                className={`${
+                  data.quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'
+                } w-full xl:h-96 flex flex-col rounded-lg col-span-2 xl:col-span-4 shadow-md xl:shadow-xl xl:hover:scale-105 transition-all duration-100 relative`}>
                 <Image
                   src={data?.imageUrl || ''}
                   alt={data?.name || ''}
@@ -246,6 +250,11 @@ const BucketMoney = ({
                     {Math.round(parseInt(discountPercentage))}%
                   </p>
                 )}
+                {data.quantity === 0 && (
+                  <span className="absolute top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center text-white">
+                    Stock Habis
+                  </span>
+                )}
               </div>
             );
           })
@@ -272,6 +281,7 @@ const BucketMoney = ({
         isPayment={isPayment}
         setStore={setStore}
         store={store}
+        fetchData={fetchData}
       />
     </main>
   );

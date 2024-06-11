@@ -40,7 +40,7 @@ const Header = ({
         <div className="flex items-center gap-x-1 xl:gap-x-4">
           <CiShoppingCart size={35} className="text-primary w-[20px] h-[20px] xl:w-[35px] xl:h-[35px]" />
           {user.name?.length && (
-            <div className="flex items-center gap-x-1 xl:gap-x-4">
+            <div className="flex items-center xl:gap-x-4">
               <div
                 onClick={handleMenu}
                 className="flex items-center gap-x-1 xl:gap-x-4 cursor-pointer">
@@ -48,16 +48,16 @@ const Header = ({
                   size={27}
                   className="w-[13px] h-[13px] xl:w-[22px] xl:h-[22px] cursor-pointer"
                 />
-                <p className="text-[10px] xl:text-base">{user?.name ? user?.name : 'Unkown'}</p>
+                <p className="text-[8px] xl:text-base">{user?.name ? user?.name : 'Unkown'}</p>
                 {isMenu ? (
                   <IoChevronDownSharp
                     size={30}
-                    className="w-[10px] h-[10px] xl:w-[20px] xl:h-[20px] cursor-pointer"
+                    className="w-[8px] h-[8px] xl:w-[20px] xl:h-[20px] cursor-pointer"
                   />
                 ) : (
                   <IoChevronForward
                     size={30}
-                    className="w-[10px] h-[10px] xl:w-[20px] xl:h-[20px] cursor-pointer"
+                    className="w-[8px] h-[8px] xl:w-[20px] xl:h-[20px] cursor-pointer"
                   />
                 )}
               </div>

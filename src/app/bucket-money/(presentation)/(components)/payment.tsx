@@ -7,17 +7,19 @@ import useOverlay from '@/app/store copy/store.notif';
 import { UploadImage } from './upload.image';
 import VM from '../vm/vm';
 import { HandleError } from '@/core/services/handleError/handleError';
+import { IQueryModel } from '@/core/interface/IQueryModel';
 
 interface IPayment {
   setIsPayment: Function;
   isPayment: boolean;
   setStore: Function;
   store: IDataOrderModel;
+  fetchData: Function;
 }
 
 const Payment = (props: IPayment) => {
   const { createOrder } = VM();
-  const { setIsPayment, isPayment, setStore, store } = props;
+  const { setIsPayment, isPayment, setStore, store, fetchData } = props;
   const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
   const notifyService = new NotifyService();
   const toastifyService = new ToastifyService();
@@ -92,6 +94,10 @@ const Payment = (props: IPayment) => {
               public_id: '',
               imageUrl: '',
             });
+            const payload: IQueryModel = {
+              user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
+            };
+            fetchData(payload);
           })
           .catch((err) => {
             HandleError(err);

@@ -6,7 +6,6 @@ import { NotifyService } from '@/core/services/notify/notifyService';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import VM from './(presentation)/vm/vm';
-import axios from 'axios';
 import Link from 'next/link';
 
 const Login = () => {
@@ -41,24 +40,10 @@ const Login = () => {
         password: password,
       });
 
-      // const res = await axios.post(
-      //   'https://marketplace-web-five.vercel.app/api/auth/login',
-      //   {
-      //     email: email,
-      //     password: password,
-      //   },
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
-
       localStorage.setItem('currentUser', JSON.stringify(res.data));
 
       // Assuming res.data contains the token
       const token = res?.data?.token;
-
       document.cookie = `token=${token}`;
 
       router.push('/');
@@ -79,7 +64,7 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen bg-secondary px-1 xl:p-4 flex xl:justify-center xl:items-center py-20 select-none">
-      <div className="w-full xl:w-1/3 h-1/2 xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-2 bg-white rounded-lg pb-5">
+      <div className="w-full xl:w-1/3 h-3/4 xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-2 bg-white rounded-lg pb-5">
         <h1 className="text-xs xl:text-xl font-semibold leading-relaxed mt-5 xl:mt-10">
           Masuk ke akun Anda
         </h1>
@@ -90,7 +75,7 @@ const Login = () => {
           <input
             id="email"
             type="mail"
-            className="w-fullborder-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-6 h-14 xl:h-16 w-11/12 xl:w-4/5  outline-none text-xs xl:text-base"
+            className="w-11/12 xl:w-4/5 bg-gray-100 text-black placeholder:text-gray-600 rounded-lg px-6 h-14 xl:h-16 outline-none hover:outline-primary transition-all text-xs xl:text-base"
             placeholder="Masukkan email"
             autoComplete="email"
             value={email || ''}
@@ -103,7 +88,7 @@ const Login = () => {
               id="password"
               ref={passwordRef}
               type={viewPwd ? 'text' : 'password'}
-              className="w-full border-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-6 h-14 xl:h-16 outline-none text-xs xl:text-base"
+              className="w-full bg-gray-100 text-black placeholder:text-gray-600 rounded-lg px-6 h-14 xl:h-16 outline-none hover:outline-primary transition-all text-xs xl:text-base"
               placeholder="Kata Sandi"
               autoComplete="current-password"
               value={password || ''}

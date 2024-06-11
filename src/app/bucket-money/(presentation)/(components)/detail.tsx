@@ -1,8 +1,7 @@
 'use client';
-import { DataBucketUang } from '@/data/mock.data';
 import { useEffect, useState } from 'react';
 import { NotifyService } from '@/core/services/notify/notifyService';
-import { FaCircleXmark } from 'react-icons/fa6';
+import { AiOutlineClose } from 'react-icons/ai';
 import { FaCirclePlus, FaCircleMinus } from 'react-icons/fa6';
 import VM from '../vm/vm';
 import { HandleError } from '@/core/services/handleError/handleError';
@@ -145,24 +144,22 @@ const Detail = (props: IDetail) => {
     }
   };
 
-  console.log(counts[data?.id || '']);
-
   return (
     <div
       className={`absolute ${
-        isDetail ? 'top-28 xl:top-1/2 xl:-translate-y-1/2' : '-top-[1000px]'
-      } w-full xl:w-11/12 min-h-40 xl:h-4/5 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10 overflow-hidden pb-5 xl:pb-0`}>
+        isDetail ? 'top-5 xl:top-1/2 xl:-translate-y-1/2' : '-top-[1000px]'
+      } w-full xl:w-11/12 min-h-40 xl:h-4/5 left-1/2 -translate-x-1/2 bg-white rounded-lg transition-all duration-300 z-10 overflow-hidden pb-4 xl:pb-0`}>
       <div className="w-full h-full relative xl:py-20 xl:px-4 grid grid-cols-12 gap-2 xl:gap-5">
-        <FaCircleXmark
+        <AiOutlineClose
           size={25}
           onClick={() => handleMenu(data, 'close')}
-          className="absolute right-2  xl:right-4 top-2 text-primary w-[15px] h-[15px] xl:w-[25px] xl:h-[25px] cursor-pointer"
+          className="absolute right-2  xl:right-4 top-2 text-primary font-bold w-[18px] h-[18px] xl:w-[25px] xl:h-[25px] cursor-pointer"
         />
         <img
           src={data.imageUrl}
           className="object-cover h-full col-span-12 xl:col-span-5 overflow-hidden"
         />
-        <div className="col-span-12 xl:col-span-7 flex flex-col gap-y-4">
+        <div className="col-span-12 xl:col-span-7 flex flex-col gap-y-3">
           <h1 className="font-semibold text-xs xl:text-xl px-2 xl:px-0">{data.name}</h1>
           <span className="text-xs xl:text-base border-y-2 border-black/60 p-2 xl:mb-5 flex items-center justify-between">
             <span className="flex items-center gap-x-1">
