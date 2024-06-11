@@ -1,25 +1,28 @@
 import { NotifyService, ToastifyService } from '@/core/services/notify/notifyService';
-import { dataBank } from '@/data/mock.data';
+import { dataBank, IBankModel } from '@/data/mock.data';
 import { useEffect, useState } from 'react';
 import { FaCircleXmark } from 'react-icons/fa6';
-import { IStore } from '../../domain/model/model';
+import { IDataOrderModel } from '../../domain/model/model';
 import useOverlay from '@/app/store copy/store.notif';
 import { UploadImage } from './upload.image';
+import VM from '../vm/vm';
+import { HandleError } from '@/core/services/handleError/handleError';
 
 interface IPayment {
   setIsPayment: Function;
   isPayment: boolean;
   setStore: Function;
-  store: IStore;
+  store: IDataOrderModel;
 }
 
 const Payment = (props: IPayment) => {
+  const { createOrder } = VM();
   const { setIsPayment, isPayment, setStore, store } = props;
   const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
   const notifyService = new NotifyService();
   const toastifyService = new ToastifyService();
   const [isOverlay, setIsOverlay] = useOverlay();
-  const [selectedBank, setSelectedBank] = useState<any>();
+  const [selectedBank, setSelectedBank] = useState<IBankModel>();
   const [dataInput, setDataInput] = useState({
     public_id: '',
     imageUrl: '',
@@ -40,14 +43,6 @@ const Payment = (props: IPayment) => {
           notifyService.timeOutNotification().then((res) => {
             if (res) {
               setIsPayment(!isPayment);
-              setStore({
-                id: 0,
-                title: '',
-                imageUrl: '',
-                quantity: 0,
-                total_price: 0,
-                type: '',
-              });
               window.location.reload();
             }
           });
@@ -75,8 +70,33 @@ const Payment = (props: IPayment) => {
 
   const handlePayment = () => {
     notifyService.confirmationCreate().then((res) => {
-      window.location.reload();
-      toastifyService.successCreate();
+      if (res) {
+        createOrder(store)
+          .then(() => {
+            toastifyService.successCreate();
+            setIsOverlay(!isOverlay);
+            setIsPayment(!isPayment);
+            setStore({
+              product_id: '',
+              user_id: '',
+              customer_name: '',
+              product_name: '',
+              client: '',
+              price: 0,
+              quantity: 0,
+              total_price: 0,
+              category: '',
+              created_at: '',
+            });
+            setDataInput({
+              public_id: '',
+              imageUrl: '',
+            });
+          })
+          .catch((err) => {
+            HandleError(err);
+          });
+      }
     });
   };
 
@@ -89,7 +109,7 @@ const Payment = (props: IPayment) => {
         <FaCircleXmark
           size={25}
           onClick={handleCancel}
-          className="absolute right-2 xl:right-4 top-2 text-primary w-[10px] h-[10px] xl:w-[25px] xl:h-[25px] cursor-pointer"
+          className="absolute right-2  xl:right-4 top-2 text-primary w-[15px] h-[15px] xl:w-[25px] xl:h-[25px] cursor-pointer"
         />
         <div className="flex items-center gap-x-2 xl:gap-x-4">
           <input
@@ -100,7 +120,7 @@ const Payment = (props: IPayment) => {
         </div>
         <div className="xl:w-1/2 flex items-center gap-x-3 xl:gap-x-6 rounded-lg">
           <label htmlFor="bank" className="font-medium w-1/4 xl:w-[15%]">
-            Pilih Bank
+            Pilih Bank<span className="text-primary">*</span>
           </label>
           <select
             id="bank"
@@ -115,15 +135,13 @@ const Payment = (props: IPayment) => {
             ))}
           </select>
         </div>
-        {selectedBank && (
-          <div>
-            <p className="font-medium xl:mt-2">No. Rek: {selectedBank.no_rek}</p>
-          </div>
-        )}
+        <div>
+          <p className="font-medium xl:mt-2">No. Rek: {selectedBank?.no_rek}</p>
+        </div>
         <p>
           Total :{' '}
           <span className="text-primary font-semibold">
-            Rp.{store.total_price.toLocaleString('id-ID')}
+            Rp.{store.total_price?.toLocaleString('id-ID')}
           </span>
         </p>
         <p>
@@ -139,7 +157,10 @@ const Payment = (props: IPayment) => {
           </label>
           <UploadImage setDataInput={setDataInput} dataInput={dataInput} />
         </div>
-        <button onClick={handlePayment} className="button">
+        <button
+          onClick={handlePayment}
+          className={`${dataInput.imageUrl && selectedBank?.id ? 'button' : 'disabled-button'}`}
+          disabled={dataInput.imageUrl ? false : true}>
           Kirim
         </button>
       </div>

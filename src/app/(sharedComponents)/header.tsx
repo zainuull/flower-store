@@ -23,8 +23,8 @@ const Header = ({
   };
   return (
     <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 my-4 xl:my-16">
-      <p className="uppercase xl:text-9xl text-primary font-semibold">Blooms</p>
-      <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold text-[10px] xl:text-base">
+      <p className="uppercase lg:text-4xl xl:text-9xl text-primary font-semibold">Blooms</p>
+      <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold text-[8px] xl:text-base">
         <Link href={'/'} className="hover:text-primary transition-all">
           Bucket Uang
         </Link>
@@ -64,7 +64,7 @@ const Header = ({
             </div>
           )}
           {!user.token && (
-            <Link href={'/login'} className="px-6 py-1 bg-primary text-white rounded-lg">
+            <Link href={'/login-customer'} className="px-6 py-1 bg-primary text-white rounded-lg">
               Login
             </Link>
           )}

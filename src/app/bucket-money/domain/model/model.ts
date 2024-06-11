@@ -16,3 +16,24 @@ export interface IStore {
   total_price: number;
   type: string;
 }
+
+
+export interface IOrderModel {
+  data?: IDataOrderModel[];
+}
+
+export interface IDataOrderModel {
+  id?: string;
+  product_id?: string;
+  user_id?: string;
+  customer_name?: string;
+  product_name?: string;
+  client?: string;
+  price?: number;
+  quantity?: number;
+  quantity_product?: number;
+  total_price?: number;
+  category?: string;
+  created_at?: string;
+  action?: string;
+}

@@ -53,26 +53,23 @@ export const UploadImage = ({ setDataInput, dataInput }: IUploadImage) => {
       <CldUploadButton
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
         onUpload={handleUploadImage}
-        className={`relative w-full h-52 bg-slate-100 flex items-center justify-center ${
+        className={`relative w-full h-28 bg-slate-100 flex items-center justify-center ${
           dataInput?.imageUrl && 'pointer-events-none'
         }`}>
         <GoUpload size={25} className="w-[20px] h-[20px] xl:w-[25px] xl:h-[25px]" />
-        {dataInput?.imageUrl ||
-          ('' && (
-            <Image
-              src={dataInput?.imageUrl || ''}
-              alt={dataInput?.name || ''}
-              width={300}
-              height={300}
-              className="absolute w-full h-52 object-cover inset-0"
-            />
-          ))}
+        <Image
+          src={dataInput?.imageUrl || ''}
+          alt={dataInput?.name || ''}
+          width={300}
+          height={300}
+          className="absolute w-full h-28 object-cover inset-0"
+        />
       </CldUploadButton>
       {dataInput?.imageUrl && (
         <button
           onClick={handleDeleteImage}
-          className="bg-red-600 text-white py-2 text-sm rounded-lg w-[150px] hover:bg-red-700 transition-all mx-2">
-          Delete Image
+          className="bg-red-600 text-white p-1 xl:py-2 text-[10px] xl:text-sm rounded-lg w-[60px] xl:w-[150px] hover:bg-red-700 transition-all">
+          Delete
         </button>
       )}
     </>

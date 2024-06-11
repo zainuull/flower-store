@@ -10,6 +10,7 @@ import VM from './(presentation)/vm/vm';
 import Swal from 'sweetalert2';
 import { HandleError } from '@/core/services/handleError/handleError';
 import { IQueryModel } from '@/core/interface/IQueryModel';
+import Image from 'next/image';
 
 export interface CountsState {
   [id: string]: number;
@@ -132,18 +133,19 @@ const BucketMoney = ({
 
   return (
     <main className="w-full min-h-screen xl:p-2 flex flex-col xl:gap-y-4 overflow-hidden">
+      {/* Filter Dropdown */}
       <span className="w-full flex flex-col xl:flex-row items-center justify-between px-4">
-        <h1 className="text-[10px] xl:text-xl text-primary font-semibold text-center xl:mb-2">
+        <h1 className="text-[10px] xl:text-xl text-primary font-semibold text-center my-2 xl:my-0 xl:mb-2">
           New Collection
         </h1>
-        <div className="grid grid-cols-2 xl:grid-cols-12 gap-2">
+        <div className="grid grid-cols-2 xl:grid-cols-12 mb-4 xl:mb-0 gap-2">
           <div className="bg-gray-100 flex items-center gap-x-1 rounded-lg p-1 xl:px-2 outline-none hover:outline-primary transition-all col-span-1 xl:col-span-4">
             <label htmlFor="min-price" className="font-medium text-[8px] xl:text-sm">
               Min Price
             </label>
             <select
               id="min-price"
-              className="bg-transparent rounded-lg xl:h-8 xl:px-2 outline-none text-xs text-[8px] xl:text-sm cursor-pointer"
+              className="bg-transparent rounded-lg xl:h-8 xl:px-2 outline-none text-[8px] xl:text-sm cursor-pointer"
               value={minPrice}
               onChange={handleMinPriceChange}>
               {priceOptions.map((price) => (
@@ -159,7 +161,7 @@ const BucketMoney = ({
             </label>
             <select
               id="max-price"
-              className="bg-transparent rounded-lg xl:h-8 xl:px-2 outline-none text-xs text-[8px] xl:text-sm cursor-pointer"
+              className="bg-transparent rounded-lg xl:h-8 xl:px-2 outline-none text-[8px] xl:text-sm cursor-pointer"
               value={maxPrice}
               onChange={handleMaxPriceChange}>
               {priceOptions.map((price) => (
@@ -190,6 +192,7 @@ const BucketMoney = ({
           </div>
         </div>
       </span>
+      {/* Cards */}
       <div className="w-full grid grid-cols-4 xl:grid-cols-12 gap-2 xl:gap-5">
         {filteredData?.length ? (
           filteredData.map((data: IDataProductsModel) => {
@@ -204,11 +207,17 @@ const BucketMoney = ({
               <div
                 key={data.id}
                 onClick={() => handleMenu(data.id || '', 'detail')}
-                className="w-full xl:h-96 flex flex-col rounded-lg p-2 col-span-4 shadow-md xl:shadow-xl xl:hover:scale-105 transition-all duration-100 cursor-pointer relative">
-                <img src={data.imageUrl} className="object-cover h-4/5" />
-                <span className="flex justify-between px-2 mt-2 xl:mt-4">
+                className="w-full xl:h-96 flex flex-col rounded-lg p-2 col-span-2 xl:col-span-4 shadow-md xl:shadow-xl xl:hover:scale-105 transition-all duration-100 cursor-pointer relative">
+                <Image
+                  src={data?.imageUrl || ''}
+                  alt={data?.name || ''}
+                  width={400}
+                  height={400}
+                  className="object-cover xl:h-4/5"
+                />
+                <span className="flex flex-col xl:flex-row justify-between px-2 mt-2 xl:mt-4">
                   <span>
-                    <p className="font-semibold text-[8px] xl:text-base">{data.name}</p>
+                    <p className="font-semibold text-[10px] xl:text-base">{data.name}</p>
                     <p className="text-[8px] xl:text-sm font-light">Jenis: {data.category}</p>
                   </span>
                   <span className="flex items-center gap-x-1 text-[8px] xl:text-base">
@@ -233,7 +242,7 @@ const BucketMoney = ({
                   </span>
                 </span>
                 {(data.discount_price || data.is_flash_sale) && (
-                  <p className="text-primary font-semibold text-sm absolute right-4 top-2 text-[8px] xl:text-base">
+                  <p className="text-red-500 font-semibold absolute right-2 top-2 xl:right-4 xl:top-3 text-[7px] xl:text-base">
                     {Math.round(parseInt(discountPercentage))}%
                   </p>
                 )}

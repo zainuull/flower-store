@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { GetCategoryUseCase, GetDataByIdUseCase, GetDataUseCase } from '../../domain/usecase';
+import {
+  CreateOrderUseCase,
+  GetCategoryUseCase,
+  GetDataByIdUseCase,
+  GetDataUseCase,
+} from '../../domain/usecase';
 import APIDataSourceImpl from '../../data/api.data.source';
 import { IQueryModel } from '@/core/interface/IQueryModel';
 import { ICategoryModel, IDataProductsModel, IProductsModel } from '@/core/interface/IModel';
+import { IDataOrderModel } from '../../domain/model/model';
 
 export default function VM() {
   const [datas, setDatas] = useState<IProductsModel>();
@@ -16,6 +22,7 @@ export default function VM() {
   const getDataUseCase = new GetDataUseCase(apiDataSource);
   const getDataByIdUseCase = new GetDataByIdUseCase(apiDataSource);
   const getCategoriesUseCase = new GetCategoryUseCase(apiDataSource);
+  const createOrderUseCase = new CreateOrderUseCase(apiDataSource);
 
   //function
   async function getData(query: IQueryModel) {
@@ -29,6 +36,10 @@ export default function VM() {
     setCategories(await getCategoriesUseCase.invoke(query));
   }
 
+  async function createOrder(data: IDataOrderModel) {
+    return await createOrderUseCase.invoke(data);
+  }
+
   return {
     getData,
     datas,
@@ -36,5 +47,6 @@ export default function VM() {
     getDataById,
     getCategory,
     categories,
+    createOrder,
   };
 }

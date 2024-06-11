@@ -7,9 +7,10 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import VM from './(presentation)/vm/vm';
 import axios from 'axios';
+import Link from 'next/link';
 
 const Login = () => {
-  const { loginData } = VM();
+  const { loginCustomer } = VM();
   const router = useRouter();
   const [viewPwd, setViewPwd] = useState(false);
   const notifyService = new NotifyService();
@@ -35,7 +36,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const res = await loginData({
+      const res = await loginCustomer({
         email: email,
         password: password,
       });
@@ -77,9 +78,9 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-secondary px-1 xl:p-4 flex items-center justify-center select-none">
-      <div className="w-full xl:w-1/3 h-1/2 xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-2 bg-white rounded-lg">
-        <h1 className="text-xs xl:text-xl font-semibold leading-relaxed mt-10">
+    <div className="w-full h-screen bg-secondary px-1 xl:p-4 flex xl:justify-center xl:items-center py-20 select-none">
+      <div className="w-full xl:w-1/3 h-1/2 xl:h-4/5 flex flex-col items-center lg:justify-center xl:justify-normal gap-y-2 bg-white rounded-lg pb-5">
+        <h1 className="text-xs xl:text-xl font-semibold leading-relaxed mt-5 xl:mt-10">
           Masuk ke akun Anda
         </h1>
         <p className="text-gray-400 text-xs lg:text-base text-center">
@@ -89,7 +90,7 @@ const Login = () => {
           <input
             id="email"
             type="mail"
-            className="border-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-6 h-14 xl:h-16 w-4/5  outline-none text-xs xl:text-base"
+            className="w-fullborder-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-6 h-14 xl:h-16 w-11/12 xl:w-4/5  outline-none text-xs xl:text-base"
             placeholder="Masukkan email"
             autoComplete="email"
             value={email || ''}
@@ -97,7 +98,7 @@ const Login = () => {
             onKeyDown={handleKeyDown}
             required
           />
-          <div className="w-4/5 relative">
+          <div className="w-11/12 xl:w-4/5 relative">
             <input
               id="password"
               ref={passwordRef}
@@ -136,11 +137,16 @@ const Login = () => {
             onClick={handleLogin}
             className={`${
               password?.length ? 'bg-primary' : 'disabled-button'
-            } rounded-lg px-6 h-12 xl:h-16 w-4/5  text-white text-xs xl:text-base`}>
+            } rounded-lg px-6 h-12 xl:h-16 w-11/12 xl:w-4/5  text-white text-xs xl:text-base`}>
             {isLoading ? 'Loading...' : 'Login'}
           </button>
         </form>
-        <p className="text-primary  mt-2 cursor-pointer text-xs xl:text-sm">Lupa Kata Sandi?</p>
+        <p className="mt-2 cursor-pointer text-xs xl:text-sm">
+          Belum Punya Akun?{' '}
+          <Link href={'/register'} className="text-primary">
+            Daftar
+          </Link>
+        </p>
       </div>
     </div>
   );

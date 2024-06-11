@@ -53,7 +53,13 @@ export const DataBucketBunga = [
   },
 ];
 
-export const dataBank = [
+export interface IBankModel {
+  id?: number;
+  name?: string;
+  no_rek?: string;
+}
+
+export const dataBank: IBankModel[] = [
   {
     id: 1,
     name: 'BCA',

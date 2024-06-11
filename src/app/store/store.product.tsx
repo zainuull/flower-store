@@ -1,13 +1,17 @@
 import { atom, useAtom } from 'jotai';
-import { IStore } from '../bucket-money/domain/model/model';
+import { IDataOrderModel } from '../bucket-money/domain/model/model';
 
-const store = atom<IStore>({
-  id: 0,
-  title: '',
-  imageUrl: '',
+const store = atom<IDataOrderModel>({
+  product_id: '',
+  user_id: '',
+  customer_name: '',
+  product_name: '',
+  client: '',
+  price: 0,
   quantity: 0,
   total_price: 0,
-  type: '',
+  category: '',
+  created_at: '',
 });
 
 const useStore = () => useAtom(store);
