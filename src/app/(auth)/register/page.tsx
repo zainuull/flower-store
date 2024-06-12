@@ -60,6 +60,7 @@ const Register = () => {
           role: 'Customer',
           created_at: currentDate,
           user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
+          project_id: `${process.env.NEXT_PUBLIC_PROJECT_ID}`,
         };
 
         if (
@@ -142,7 +143,7 @@ const Register = () => {
               placeholder="Input email"
             />
           </div>
-          <div className="w-11/12 xl:w-4/5 relative  text-xs xl:text-sm">
+          <div className="w-11/12 xl:w-4/5 relative text-xs xl:text-sm">
             <label htmlFor="email" className="font-medium">
               Password<span className="text-red-600">*</span>
             </label>
@@ -150,7 +151,7 @@ const Register = () => {
               id="password"
               ref={passwordRef}
               type={viewPwd ? 'text' : 'password'}
-              className="w-full border-2 text-black placeholder:text-gray-600 border-gray-400 rounded-lg px-2 h-10 xl:h-16 outline-none text-xs xl:text-base"
+              className="bg-gray-100 w-full text-black placeholder:text-gray-600 rounded-lg px-2 h-10 xl:h-16 outline-none hover:outline-primary transition-all text-xs xl:text-base"
               placeholder="Kata Sandi"
               autoComplete="current-password"
               value={dataInput?.password || ''}

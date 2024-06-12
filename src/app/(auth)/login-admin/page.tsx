@@ -38,6 +38,7 @@ const Login = () => {
       const res = await loginDashboard({
         email: email,
         password: password,
+        project_id: `${process.env.NEXT_PUBLIC_PROJECT_ID}`,
       });
 
       localStorage.setItem('currentUser', JSON.stringify(res.data));

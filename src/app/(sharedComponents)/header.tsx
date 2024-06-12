@@ -39,7 +39,7 @@ const Header = ({
         </Link>
         <div className="flex items-center gap-x-1 xl:gap-x-4">
           <CiShoppingCart size={35} className="text-primary w-[20px] h-[20px] xl:w-[35px] xl:h-[35px]" />
-          {user.name?.length && (
+          {(user.name) && (
             <div className="flex items-center xl:gap-x-4">
               <div
                 onClick={handleMenu}

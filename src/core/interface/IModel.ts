@@ -70,6 +70,8 @@ export interface IUserModel extends IModel {
 
 export interface IDataUserModel {
   id?: string;
+  project_id?:string
+  project_name?:string
   name?: string;
   username?: string;
   email?: string;

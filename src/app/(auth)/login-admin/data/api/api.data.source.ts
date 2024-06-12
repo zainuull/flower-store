@@ -7,8 +7,4 @@ export default class ApiDataSourceImpl implements Repository {
     const res = await Http.post<IDataUserModel>('/api/auth/login-dashboard', data);
     return res.data;
   }
-  async loginCustomer(data: IDataUserModel) {
-    const res = await Http.post<IDataUserModel>('/api/auth/login-customer', data);
-    return res.data;
-  }
 }

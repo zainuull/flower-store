@@ -246,7 +246,7 @@ const BucketMoney = ({
                   </span>
                 </span>
                 {(data.discount_price || data.is_flash_sale) && (
-                  <p className="text-red-500 font-semibold absolute right-2 top-2 xl:right-4 xl:top-3 text-[7px] xl:text-base">
+                  <p className="text-red-500 font-semibold absolute right-2 top-2 xl:right-4 xl:top-3 text-[7px] xl:text-base bg-white rounded-lg px-2 py-1">
                     {Math.round(parseInt(discountPercentage))}%
                   </p>
                 )}
