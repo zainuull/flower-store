@@ -11,7 +11,10 @@ const store = atom<IDataOrderModel>({
   quantity: 0,
   total_price: 0,
   category: '',
+  public_id: '',
+  imageUrl: '',
   created_at: '',
+  status_payment: '',
 });
 
 const useStore = () => useAtom(store);

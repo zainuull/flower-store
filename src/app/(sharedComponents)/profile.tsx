@@ -36,19 +36,17 @@ const Profile = (props: IProfile) => {
     setIsMenu(!isMenu);
   };
 
-
   const handleLogout = () => {
     notify.confirmationLogout().then((res) => {
       if (res) {
         if (user.role?.includes('Client')) {
-          router.push('/login-admin');
+          window.location.href = '/login-admin';
         } else {
-          router.push('/login-customer');
+          window.location.href = '/login-customer';
         }
         setIsOverlay(false);
         window.localStorage.clear();
         deleteCookie('token');
-        router.refresh();
       }
     });
   };

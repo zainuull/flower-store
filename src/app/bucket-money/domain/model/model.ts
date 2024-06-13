@@ -17,7 +17,6 @@ export interface IStore {
   type: string;
 }
 
-
 export interface IOrderModel {
   data?: IDataOrderModel[];
 }
@@ -34,6 +33,10 @@ export interface IDataOrderModel {
   quantity_product?: number;
   total_price?: number;
   category?: string;
+  imageUrl?: string;
+  status_payment?: string;
+  public_id?: string;
   created_at?: string;
+  updated_at?: string;
   action?: string;
 }

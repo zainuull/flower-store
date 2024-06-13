@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import VM from './(presentation)/vm/vm';
 import axios from 'axios';
+import Link from 'next/link';
 
 const Login = () => {
   const { loginDashboard } = VM();
@@ -48,7 +49,7 @@ const Login = () => {
 
       document.cookie = `token=${token}`;
 
-      router.push('/');
+      window.location.href = '/';
       Swal.close();
     } catch (error) {
       Swal.close();
@@ -130,7 +131,12 @@ const Login = () => {
             {isLoading ? 'Loading...' : 'Login'}
           </button>
         </form>
-        <p className="text-primary  mt-2 cursor-pointer text-xs xl:text-sm">Lupa Kata Sandi?</p>
+        <p className="mt-2 cursor-pointer text-xs xl:text-sm">
+          Login Customer?{' '}
+          <Link href={'/login-customer'} className="text-primary">
+            Klik
+          </Link>
+        </p>
       </div>
     </div>
   );

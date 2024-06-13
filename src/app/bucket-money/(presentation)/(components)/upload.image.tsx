@@ -4,14 +4,14 @@ import Image from 'next/image';
 import { CldUploadButton, CloudinaryUploadWidgetResults } from 'next-cloudinary';
 import React, { useState } from 'react';
 import { NotifyService } from '@/core/services/notify/notifyService';
-import { IDataProductsModel } from '@/core/interface/IModel';
+import { IDataOrderModel } from '../../domain/model/model';
 
 interface IUploadImage {
-  setDataInput: Function;
-  dataInput: IDataProductsModel;
+  setStore: Function;
+  store: IDataOrderModel;
 }
 
-export const UploadImage = ({ setDataInput, dataInput }: IUploadImage) => {
+export const UploadImage = ({ setStore, store }: IUploadImage) => {
   // const { deleteImage } = useViewModel();
   const [publicId, setPublicId] = useState('');
   const notifyService = new NotifyService();
@@ -23,7 +23,7 @@ export const UploadImage = ({ setDataInput, dataInput }: IUploadImage) => {
       const url = info.secure_url as string;
       const public_id = info.public_id as string;
 
-      setDataInput({ ...dataInput, public_id: public_id, imageUrl: url });
+      setStore({ ...store, public_id: public_id, imageUrl: url });
       setPublicId(public_id);
     }
   };
@@ -39,7 +39,7 @@ export const UploadImage = ({ setDataInput, dataInput }: IUploadImage) => {
             body: JSON.stringify({ publicId }),
           });
           if (res.ok) {
-            setDataInput({ ...dataInput, public_id: '', imageUrl: '' });
+            setStore({ ...store, public_id: '', imageUrl: '' });
           }
         } catch (error) {
           console.log(error);
@@ -54,18 +54,23 @@ export const UploadImage = ({ setDataInput, dataInput }: IUploadImage) => {
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
         onUpload={handleUploadImage}
         className={`relative w-full h-28 bg-slate-100 flex items-center justify-center ${
-          dataInput?.imageUrl && 'pointer-events-none'
+          store?.imageUrl && 'pointer-events-none'
         }`}>
-        <GoUpload size={25} className="w-[20px] h-[20px] xl:w-[25px] xl:h-[25px]" />
-        <Image
-          src={dataInput?.imageUrl || ''}
-          alt={dataInput?.name || ''}
-          width={300}
-          height={300}
-          className="absolute w-full h-28 object-cover inset-0"
-        />
+        {store.imageUrl ? (
+          <Image
+            src={store?.imageUrl || ''}
+            alt={store?.public_id || ''}
+            width={300}
+            height={300}
+            className="absolute w-full h-28 object-cover inset-0"
+          />
+        ) : (
+          <div className="bg-gray-100 rounded-lg absolute w-full h-28 object-cover inset-0 flex items-center justify-center">
+            <GoUpload size={25} className="w-[20px] h-[20px] xl:w-[25px] xl:h-[25px]" />
+          </div>
+        )}
       </CldUploadButton>
-      {dataInput?.imageUrl && (
+      {store?.imageUrl && (
         <button
           onClick={handleDeleteImage}
           className="bg-red-600 text-white p-1 xl:py-2 text-[10px] xl:text-sm rounded-lg w-[60px] xl:w-[150px] hover:bg-red-700 transition-all">

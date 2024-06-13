@@ -47,7 +47,7 @@ const Login = () => {
       const token = res?.data?.token;
       document.cookie = `token=${token}`;
 
-      router.push('/');
+      window.location.href = '/';
       Swal.close();
     } catch (error) {
       setIsLoading(false);

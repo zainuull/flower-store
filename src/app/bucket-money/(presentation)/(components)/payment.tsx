@@ -8,6 +8,7 @@ import { UploadImage } from './upload.image';
 import VM from '../vm/vm';
 import { HandleError } from '@/core/services/handleError/handleError';
 import { IQueryModel } from '@/core/interface/IQueryModel';
+import dayjs from 'dayjs';
 
 interface IPayment {
   setIsPayment: Function;
@@ -25,10 +26,6 @@ const Payment = (props: IPayment) => {
   const toastifyService = new ToastifyService();
   const [isOverlay, setIsOverlay] = useOverlay();
   const [selectedBank, setSelectedBank] = useState<IBankModel>();
-  const [dataInput, setDataInput] = useState({
-    public_id: '',
-    imageUrl: '',
-  });
 
   const handleBankChange = (e: any) => {
     const selectedBankName = e.target.value;
@@ -71,33 +68,32 @@ const Payment = (props: IPayment) => {
   };
 
   const handlePayment = () => {
+    const dateTimeFormat = 'YYYY-MM-DD HH:mm';
+    const currentDate = dayjs().format(dateTimeFormat);
+
     notifyService.confirmationCreate().then((res) => {
       if (res) {
-        createOrder(store)
+        const payload: IDataOrderModel = {
+          product_id: store.product_id,
+          user_id: store.user_id,
+          customer_name: store.customer_name,
+          product_name: store.product_name,
+          client: store.client,
+          price: store.price,
+          quantity: store.quantity,
+          total_price: store.total_price,
+          category: store.category,
+          public_id: store.public_id,
+          imageUrl: store.imageUrl,
+          status_payment: 'Waiting',
+          created_at: currentDate,
+          updated_at: '',
+        };
+
+        createOrder(payload)
           .then(() => {
             toastifyService.successCreate();
-            setIsOverlay(!isOverlay);
-            setIsPayment(!isPayment);
-            setStore({
-              product_id: '',
-              user_id: '',
-              customer_name: '',
-              product_name: '',
-              client: '',
-              price: 0,
-              quantity: 0,
-              total_price: 0,
-              category: '',
-              created_at: '',
-            });
-            setDataInput({
-              public_id: '',
-              imageUrl: '',
-            });
-            const payload: IQueryModel = {
-              user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
-            };
-            fetchData(payload);
+            window.location.reload();
           })
           .catch((err) => {
             HandleError(err);
@@ -161,12 +157,12 @@ const Payment = (props: IPayment) => {
           <label htmlFor="uploadImage" className="font-medium">
             Upload Bukti Payment<span className="text-red-600">*</span>
           </label>
-          <UploadImage setDataInput={setDataInput} dataInput={dataInput} />
+          <UploadImage setStore={setStore} store={store} />
         </div>
         <button
           onClick={handlePayment}
-          className={`${dataInput.imageUrl && selectedBank?.id ? 'button' : 'disabled-button'}`}
-          disabled={dataInput.imageUrl ? false : true}>
+          className={`${store.imageUrl && selectedBank?.id ? 'button' : 'disabled-button'}`}
+          disabled={store.imageUrl ? false : true}>
           Kirim
         </button>
       </div>

@@ -134,6 +134,7 @@ const Detail = (props: IDetail) => {
             product_id: data.id,
             user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
           };
+
           setStore(payload);
           setIsDetail(!isDetail);
           setIsPayment(!isPayment);
