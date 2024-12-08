@@ -14,7 +14,6 @@ const headers = {
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
-  headers: headers,
 });
 
 type HTTPRequestConfig = AxiosRequestConfig;
@@ -33,6 +32,7 @@ const api = (axios: AxiosInstance) => {
       if (urlAdd) {
         url += urlAdd.replace('&', '?');
       }
+
       return axios.get<T>(url, config);
     },
     delete: <T>(url: string, config: HTTPRequestConfig = {}) => {

@@ -30,7 +30,7 @@ const Detail = (props: IDetail) => {
   const [counts, setCounts] = useState<CountsState>({});
 
   useEffect(() => {
-    notifyService.showLoading();
+    // notifyService.showLoading();
     if (isDetail && id) {
       fetchData(id);
     }

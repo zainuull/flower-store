@@ -7,6 +7,7 @@ import useOverlay from './store copy/store.notif';
 import Header from './(sharedComponents)/header';
 import ToastNotify from '@/core/services/notify/toast';
 import 'react-toastify/dist/ReactToastify.css';
+import Banner from './(sharedComponents)/banner';
 
 export default function Home() {
   const [users, setUser] = useUser();
@@ -22,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full min-h-screen overflow-y-scroll flex flex-col xl:gap-y-5 items-center">
+    <main className="w-full min-h-screen overflow-y-scroll flex flex-col items-center">
       <Header
         user={user}
         setIsOverlay={setIsOverlay}
@@ -30,6 +31,7 @@ export default function Home() {
         setIsMenu={setIsMenu}
         isMenu={isMenu}
       />
+      <Banner />
       <BucketMoney
         user={user}
         setIsOverlay={setIsOverlay}
@@ -41,8 +43,10 @@ export default function Home() {
       />
       <Profile isMenu={isMenu} setIsMenu={setIsMenu} user={user} />
       {/* Overlay */}
-      {isOverlay && <span className="absolute bg-black/60 w-full h-[130%] xl:h-[100%] top-0"></span>}
-      <ToastNotify />
+      {isOverlay && (
+        <span className="absolute bg-black/60 w-full h-[130%] xl:h-[100%] top-0"></span>
+      )}
+      {/* <ToastNotify /> */}
     </main>
   );
 }

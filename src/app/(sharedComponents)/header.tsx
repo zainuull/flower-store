@@ -22,24 +22,19 @@ const Header = ({
     setIsMenu(!isMenu);
   };
   return (
-    <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 my-4 xl:my-16">
-      <p className="uppercase lg:text-4xl xl:text-9xl text-primary font-semibold">Blooms</p>
-      <div className="w-full flex items-center justify-between border-y-2 border-black p-2 font-semibold text-[8px] xl:text-base">
-        <Link href={'/'} className="hover:text-primary transition-all">
-          Bucket Uang
-        </Link>
-        <Link href={'/'} className="hover:text-primary transition-all">
-          Bucket Bunga
-        </Link>
-        <Link href={'/'} className="hover:text-primary transition-all">
-          Bucket Papan
-        </Link>
-        <Link href={'/'} className="hover:text-primary transition-all">
-          Giant Bucket
-        </Link>
-        <div className="flex items-center gap-x-1 xl:gap-x-4">
-          <CiShoppingCart size={35} className="text-primary w-[20px] h-[20px] xl:w-[35px] xl:h-[35px]" />
-          {(user.name) && (
+    <header className="w-full h-20 flex flex-col items-center justify-center gap-y-2 bg-red-800 text-white">
+      <div className="flex justify-between w-full px-4">
+        <p className="uppercase lg:text-2xl xl:text-2xl font-semibold">Rifki Perfume</p>
+        <div className="flex items-center gap-x-4">
+          <Link href={'#produk'}>Produk</Link>
+          <Link
+            href="https://wa.me/+6285217859184?text=Halo%20Saya%20Mau%20Pesan%20Parfum.!"
+            target="_blank">
+            Kontak
+          </Link>
+
+          {/* <CiShoppingCart size={35} className="w-[20px] h-[20px] xl:w-[35px] xl:h-[35px]" /> */}
+          {user.name && (
             <div className="flex items-center xl:gap-x-4">
               <div
                 onClick={handleMenu}
@@ -63,11 +58,11 @@ const Header = ({
               </div>
             </div>
           )}
-          {!user.token && (
+          {/* {!user.token && (
             <Link href={'/login-customer'} className="px-6 py-1 bg-primary text-white rounded-lg">
               Login
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </header>

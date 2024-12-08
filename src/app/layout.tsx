@@ -8,8 +8,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Flowers Store',
-  description: 'This created by Flower Store',
+  title: 'Rifki Perfume',
+  description: 'This created byRifki Perfume',
   // icons: {
   //   icon: '/logo.png',
   // },
